@@ -61,6 +61,7 @@ Les résultats seront affichés dans le terminal et enregistrés dans file_execu
 Ctrl+C arrête proprement le script et indique combien d’exécutions ont été faites.
 
 ### Exemple de log (file_execution.log)
+
 ===== Nouvelle session 2026-01-08 15:32:10 =====
 2026-01-08 15:32:10 - Démarrage auto_monitor : 3 exécutions, intervalle 5s
 ------------------------------

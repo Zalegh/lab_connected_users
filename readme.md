@@ -1,83 +1,73 @@
-## GitHub Actions / Workflow
+###Lab Connected Users
+##Description
 
-Pour ce lab, j'ai mis en place un workflow GitHub Actions pour automatiser la vérification de mes scripts Bash.
-Ce lab permet l'automatisation d'un script monitor_users.sh.
+Ce projet contient deux scripts Bash pour surveiller les utilisateurs connectés sur un système Linux :
 
+#monitor_users.sh
 
-### Fonctionnalités
+Affiche l’utilisateur qui exécute le script (celui qui lance auto_monitor.sh).
 
-- Chaque push sur la branche `main` déclenche automatiquement le workflow.
-- Le workflow exécute les scripts :
-  - `monitor_users.sh` pour afficher l'utilisateur connecté
-  - `auto_monitor.sh` pour la surveillance automatique. Il est configuré avec `timeout` pour s'arrêter après un 
-  temps défini (par défaut 2 secondes) afin de ne pas bloquer le workflow.
-- Les scripts utilisent `trap` pour gérer proprement l'arrêt avec `Ctrl+C` ou le signal envoyé par `timeout`.
+Affichage horodaté.
 
-### Paramétrage du timeout
+Code de sortie : 0 si succès.
 
-- Le workflow permet de définir la durée du timeout directement depuis GitHub :
-  1. Aller dans l'onglet **Actions** du dépôt
-  2. Sélectionner le workflow **Bash scripts check**
-  3. Cliquer sur **Run workflow**
-  4. Saisir la valeur souhaitée pour `timeout_seconds` (ex : 3, 12, 30 secondes)
-  5. Cliquer sur **Run workflow** pour lancer l'exécution
+#auto_monitor.sh
 
-### Historique et logs
+Automatise l’exécution de monitor_users.sh plusieurs fois avec un intervalle défini.
 
-- Chaque exécution du workflow est conservée dans l'onglet **Actions**, permettant de visualiser :
-  - l’évolution du workflow
-  - le comportement des scripts pour différentes valeurs de timeout
-  - les messages de `trap` lors de l’arrêt du script
-  -
+Gère les logs horodatés dans file_execution.log.
 
-# auto_monitor.sh
-## Description
-`auto_monitor.sh` est un script bash permettant de **surveiller automatiquement un autre script** (`monitor_users.sh`) à intervalles réguliers.
-Chaque exécution est horodatée et enregistrée dans un fichier de log (`file_execution.log`).
+Arrêt propre avec Ctrl+C.
 
-Il fonctionne en **mode automatique** et peut être interrompu proprement avec **Ctrl+C**.
-
----
-
-## Prérequis
-- Le script à surveiller doit être **exécutable** et présent dans le même dossier :
-  ```bash
-  chmod +x monitor_users.sh
-
-##Utilisation
-
-bash auto_monitor.sh [INTERVALLE]
-
-##Fonctionnement
-
-1. Vérifie que le script monitor_users.sh existe et est exécutable.
-
-2. Démarre une boucle infinie qui :
-
-3. exécute monitor_users.sh
-
-4. récupère et affiche le résultat avec horodatage
-
-5. enregistre le résultat dans file_execution.log
-
-6. attend le temps spécifié avant la prochaine exécution
-
-7. Gestion propre des interruptions avec Ctrl+C, qui arrête le script et log l’événement.
+Détection des erreurs et sortie propre si monitor_users.sh échoue.
 
 
-##Exemple
+###Prérequis
 
-Exécution avec intervalle par défaut (5 secondes) :
+Linux / macOS (ou tout système Unix compatible Bash)
 
-  ./auto_monitor.sh 10
-##Resultat
-2026-01-06 21:10:01 - ===== Démarrage auto_monitor (intervalle = 5s) =====
-2026-01-06 21:10:01 - Exécution n°1 | Utilisateurs connectés : 3
-2026-01-06 21:10:01 - Temps d'attente de 5 sec avant la prochaine exécution ...!
-2026-01-06 21:10:06 - Exécution n°2 | Utilisateurs connectés : 2
+Bash ≥ 4.0
+
+
+###Utilisation
+Rendre les scripts exécutables
+ chmod +x monitor_users.sh auto_monitor.sh
+
+###Exécuter monitor_users.sh seul
+./monitor_users.sh
+
+
+#Exemple de sortie :
+
+[2026-01-08 15:32:10] Utilisateur connecté qui exécute le script : aziz
+
+#Exécuter auto_monitor.sh
+./auto_monitor.sh <nombre_d_executions> <intervalle_en_secondes>
+
+
+<nombre_d_executions> : nombre de fois que monitor_users.sh sera exécuté (par défaut : 1)
+
+<intervalle_en_secondes> : temps d’attente entre chaque exécution (par défaut : 2 sec)
+
+#Exemple :
+
+./auto_monitor.sh 3 5
+
+
+Le script exécutera monitor_users.sh 3 fois avec un intervalle de 5 secondes.
+
+Les résultats seront affichés dans le terminal et enregistrés dans file_execution.log.
+
+Ctrl+C arrête proprement le script et indique combien d’exécutions ont été faites.
+
+#Exemple de log (file_execution.log)
+===== Nouvelle session 2026-01-08 15:32:10 =====
+2026-01-08 15:32:10 - Démarrage auto_monitor : 3 exécutions, intervalle 5s
+------------------------------
+2026-01-08 15:32:10 - Début de l'exécution n° 1
+[2026-01-08 15:32:10] Utilisateur connecté qui exécute le script : aziz
+2026-01-08 15:32:10 - Exécution réussie n° 1
+2026-01-08 15:32:10 - Temps d'attente : 5 sec avant la prochaine exécution
 ...
-2026-01-06 21:15:42 - Arrêt du script après 50 exécutions.
-
-##Notes
-
-Le fichier file_execution.log est créé automatiquement si inexistant et append les nouvelles entrées.
+2026-01-08 15:32:25 - Fin de la session auto_monitor.
+==============================

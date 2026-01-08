@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-USER_CONNECTED=$(whoami)
+USERS_CONNECTED=$(who)
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
-echo "[$DATE] Utilisateur connecté : $USER_CONNECTED"
+echo "[$DATE] Utilisateurs connectés : $USERS_CONNECTED"
+exit 0

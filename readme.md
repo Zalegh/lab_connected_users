@@ -1,9 +1,9 @@
-###Lab Connected Users
-##Description
+### Lab Connected Users
+## Description
 
 Ce projet contient deux scripts Bash pour surveiller les utilisateurs connectés sur un système Linux :
 
-#monitor_users.sh
+# monitor_users.sh
 
 Affiche l’utilisateur qui exécute le script (celui qui lance auto_monitor.sh).
 
@@ -11,7 +11,7 @@ Affichage horodaté.
 
 Code de sortie : 0 si succès.
 
-#auto_monitor.sh
+# auto_monitor.sh
 
 Automatise l’exécution de monitor_users.sh plusieurs fois avec un intervalle défini.
 
@@ -22,26 +22,26 @@ Arrêt propre avec Ctrl+C.
 Détection des erreurs et sortie propre si monitor_users.sh échoue.
 
 
-###Prérequis
+### Prérequis
 
 Linux / macOS (ou tout système Unix compatible Bash)
 
 Bash ≥ 4.0
 
 
-###Utilisation
+### Utilisation
 Rendre les scripts exécutables
  chmod +x monitor_users.sh auto_monitor.sh
 
-###Exécuter monitor_users.sh seul
+### Exécuter monitor_users.sh seul
 ./monitor_users.sh
 
 
-#Exemple de sortie :
+# Exemple de sortie :
 
 [2026-01-08 15:32:10] Utilisateur connecté qui exécute le script : aziz
 
-#Exécuter auto_monitor.sh
+# Exécuter auto_monitor.sh
 ./auto_monitor.sh <nombre_d_executions> <intervalle_en_secondes>
 
 
@@ -49,7 +49,7 @@ Rendre les scripts exécutables
 
 <intervalle_en_secondes> : temps d’attente entre chaque exécution (par défaut : 2 sec)
 
-#Exemple :
+# Exemple :
 
 ./auto_monitor.sh 3 5
 
@@ -60,7 +60,7 @@ Les résultats seront affichés dans le terminal et enregistrés dans file_execu
 
 Ctrl+C arrête proprement le script et indique combien d’exécutions ont été faites.
 
-#Exemple de log (file_execution.log)
+# Exemple de log (file_execution.log)
 ===== Nouvelle session 2026-01-08 15:32:10 =====
 2026-01-08 15:32:10 - Démarrage auto_monitor : 3 exécutions, intervalle 5s
 ------------------------------

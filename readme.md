@@ -63,10 +63,16 @@ Ctrl+C arrête proprement le script et indique combien d’exécutions ont été
 
 ### Exemple de log (file_execution.log)
 ===== Nouvelle session 2026-01-08 15:32:10 =====
+
 2026-01-08 15:32:10 - Démarrage auto_monitor : 3 exécutions, intervalle 5s
+
 2026-01-08 15:32:10 - Début de l'exécution n° 1
+
 [2026-01-08 15:32:10] Utilisateur connecté qui exécute le script : aziz
+
 2026-01-08 15:32:10 - Exécution réussie n° 1
+
 2026-01-08 15:32:10 - Temps d'attente : 5 sec avant la prochaine exécution
 ...
+
 2026-01-08 15:32:25 - Fin de la session auto_monitor.

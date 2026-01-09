@@ -1,0 +1,36 @@
+name: Monitor Connected Users
+
+on:
+  workflow_dispatch:
+    inputs:
+      loops:
+        description: "Nombre d'exécutions du script"
+        required: true
+        default: "1"
+      interval:
+        description: "Intervalle d'exécution du script (en secondes)"
+        required: true
+        default: "2"
+
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Donner les droits d'exécution aux scripts
+        run: |
+          chmod +x monitor_users.sh
+          chmod +x auto_monitor.sh
+
+      - name: Exécuter le script avec paramètres
+        run: |
+          echo "Boucles    : ${{ github.event.inputs.loops }}"
+          echo "Intervalle : ${{ github.event.inputs.interval }}"
+          ./auto_monitor.sh \
+            "${{ github.event.inputs.loops }}" \
+            "${{ github.event.inputs.interval }}"
+

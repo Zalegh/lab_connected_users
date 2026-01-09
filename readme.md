@@ -76,3 +76,16 @@ Ctrl+C arrête proprement le script et indique combien d’exécutions ont été
 ...
 
 2026-01-08 15:32:25 - Fin de la session auto_monitor.
+
+
+### Workflow GitHub Actions (optionnel)
+
+Le dépôt contient un workflow pour automatiser l’exécution sur GitHub :
+
+.github/workflows/monitor-users.yml
+
+Déclenchement manuel via workflow_dispatch
+
+Paramètres : loops et interval
+
+Les logs sont générés localement sur le runner et file_execution.log reste ignoré par GitHub.
